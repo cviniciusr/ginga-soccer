@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/register"
+        android:textAppearance="@style/Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fullname_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/full_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/nickname_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/nickname"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullname_edt" />
+
+    <EditText
+        android:id="@+id/register_email_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname_edt" />
+
+    <EditText
+        android:id="@+id/birth_date_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/birth_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_email_edt" />
+
+    <EditText
+        android:id="@+id/register_password_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birth_date_edt" />
+
+    <EditText
+        android:id="@+id/confirm_password_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_edt" />
+
+    <Button
+        android:id="@+id/sign_in_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/sign_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password_edt" />
+
+</android.support.constraint.ConstraintLayout>
