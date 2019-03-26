@@ -1,21 +1,24 @@
 package com.carlosvinicius.gingasoccer;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.carlosvinicius.gingasoccer.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +29,15 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference usersDatabaseReference;
+    private ChildEventListener childEventListener;
 
     @BindView(R.id.email_edt)
-    TextView emailTextView;
+    EditText emailEditText;
 
     @BindView(R.id.password_edt)
-    TextView passwordTextView;
+    EditText passwordEditText;
 
     @BindView(R.id.login_btn)
     Button loginButton;
@@ -50,6 +56,57 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        usersDatabaseReference = database.getReference("users");
+
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                User user = dataSnapshot.getValue(User.class);
+                Toast.makeText(LoginActivity.this
+                        , "Found item key: " + dataSnapshot.getKey()
+                                + "  name: " + user.getFullname()
+                                + "  e-mail: " + user.getEmail()
+                        , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
+                intent.putExtra(getResources().getString(R.string.user), user);
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                User user = dataSnapshot.getValue(User.class);
+                Toast.makeText(LoginActivity.this
+                        , "Friend changed: " + dataSnapshot.getKey()
+                                + "  name: " + user.getFullname()
+                                + "  e-mail: " + user.getEmail()
+                        , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Toast.makeText(LoginActivity.this
+                        , "Friend removed: " + dataSnapshot.getKey()
+                                + "  name: " + user.getFullname()
+                                + "  e-mail: " + user.getEmail()
+                        , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i(TAG, "childEventListener, childEventListener()");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "childEventListener, onCancelled()");
+            }
+        };
     }
 
     @OnClick(R.id.login_btn)
@@ -58,8 +115,8 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String email = emailTextView.getText().toString();
-        String password = passwordTextView.getText().toString();
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, password)
 //                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -69,9 +126,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-//                            updateUI(user);
+                        Query query = usersDatabaseReference.orderByChild("email").equalTo(email);
+                        query.addChildEventListener(childEventListener);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -106,20 +164,20 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validateForm() {
         boolean valid = true;
 
-        String email = emailTextView.getText().toString();
+        String email = emailEditText.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            emailTextView.setError("Required.");
+            emailEditText.setError("Required.");
             valid = false;
         } else {
-            emailTextView.setError(null);
+            emailEditText.setError(null);
         }
 
-        String password = passwordTextView.getText().toString();
+        String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            passwordTextView.setError("Required.");
+            passwordEditText.setError("Required.");
             valid = false;
         } else {
-            passwordTextView.setError(null);
+            passwordEditText.setError(null);
         }
 
         return valid;

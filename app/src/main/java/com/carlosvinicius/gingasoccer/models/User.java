@@ -1,9 +1,13 @@
-package com.carlosvinicius.gingasoccer.model;
+package com.carlosvinicius.gingasoccer.models;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
+@IgnoreExtraProperties
+public class User implements Serializable {
 
     private String fullname;
     private String nickname;

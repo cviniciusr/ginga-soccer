@@ -1,17 +1,17 @@
 package com.carlosvinicius.gingasoccer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.carlosvinicius.gingasoccer.model.User;
+import com.carlosvinicius.gingasoccer.models.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,22 +28,22 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference usersDatabaseReference;
 
     @BindView(R.id.fullname_edt)
-    TextView fullnameTextView;
+    EditText fullnameEditText;
 
     @BindView(R.id.nickname_edt)
-    TextView nicknameTextView;
+    EditText nicknameEditText;
 
     @BindView(R.id.register_email_edt)
-    TextView emailTextView;
+    EditText emailEditText;
 
     @BindView(R.id.birth_date_edt)
-    TextView birthDateTextView;
+    EditText birthDateEditText;
 
     @BindView(R.id.register_password_edt)
-    TextView passwordTextView;
+    EditText passwordEditText;
 
     @BindView(R.id.confirm_password_edt)
-    TextView confirmPasswordTextView;
+    EditText confirmPasswordEditText;
 
     @BindView(R.id.sign_in_btn)
     Button signInButton;
@@ -66,27 +66,29 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        String fullname = fullnameTextView.getText().toString();
-        String nickname = nicknameTextView.getText().toString();
-        String email = emailTextView.getText().toString();
-        String birthDate = birthDateTextView.getText().toString();
-        String password = passwordTextView.getText().toString();
+        String fullname = fullnameEditText.getText().toString();
+        String nickname = nicknameEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        String birthDate = birthDateEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
             .addOnCompleteListener(this, (task) -> {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success");
-                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     User user = new User(fullname, nickname, email, birthDate, password);
 
-//                    String key = usersDatabaseReference.push().getKey();
-//                    usersDatabaseReference.child(key).setValue(user);
-//                        updateUI(user);
+                    String key = usersDatabaseReference.push().getKey();
+                    usersDatabaseReference.child(key).setValue(user);
+
+                    Intent intent = new Intent(RegisterActivity.this, UserInfoActivity.class);
+                    intent.putExtra(getResources().getString(R.string.user), user);
+
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -100,56 +102,56 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean validateForm() {
         boolean valid = true;
 
-        String fullname = fullnameTextView.getText().toString();
+        String fullname = fullnameEditText.getText().toString();
         if (TextUtils.isEmpty(fullname)) {
-            fullnameTextView.setError("Required.");
+            fullnameEditText.setError("Required.");
             valid = false;
         } else {
-            fullnameTextView.setError(null);
+            fullnameEditText.setError(null);
         }
 
-        String nickname = nicknameTextView.getText().toString();
+        String nickname = nicknameEditText.getText().toString();
         if (TextUtils.isEmpty(nickname)) {
-            nicknameTextView.setError("Required.");
+            nicknameEditText.setError("Required.");
             valid = false;
         } else {
-            nicknameTextView.setError(null);
+            nicknameEditText.setError(null);
         }
 
-        String email = emailTextView.getText().toString();
+        String email = emailEditText.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            emailTextView.setError("Required.");
+            emailEditText.setError("Required.");
             valid = false;
         } else {
-            emailTextView.setError(null);
+            emailEditText.setError(null);
         }
 
-        String birthDate = birthDateTextView.getText().toString();
+        String birthDate = birthDateEditText.getText().toString();
         if (TextUtils.isEmpty(birthDate)) {
-            birthDateTextView.setError("Required.");
+            birthDateEditText.setError("Required.");
             valid = false;
         } else {
-            birthDateTextView.setError(null);
+            birthDateEditText.setError(null);
         }
 
-        String password = passwordTextView.getText().toString();
+        String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            passwordTextView.setError("Required.");
+            passwordEditText.setError("Required.");
             valid = false;
         } else {
-            passwordTextView.setError(null);
+            passwordEditText.setError(null);
         }
 
-        String confirmPassword = confirmPasswordTextView.getText().toString();
+        String confirmPassword = confirmPasswordEditText.getText().toString();
         if (TextUtils.isEmpty(confirmPassword)) {
-            confirmPasswordTextView.setError("Required.");
+            confirmPasswordEditText.setError("Required.");
             valid = false;
         } else {
-            confirmPasswordTextView.setError(null);
+            confirmPasswordEditText.setError(null);
         }
 
         if (!password.equals(confirmPassword)) {
-            confirmPasswordTextView.setError("Confirm Password must be equal to password");
+            confirmPasswordEditText.setError("Confirm Password must be equal to password");
             valid = false;
         }
 
