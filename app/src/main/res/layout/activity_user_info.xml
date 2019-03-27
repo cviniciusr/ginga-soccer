@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".UserInfoActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/teams_rv"
+        android:name="com.carlosvinicius.gingasoccer.UserInfoActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="visible"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        tools:context=".RecipeFragment"
+        tools:listitem="@layout/team_list_item" />
 </android.support.constraint.ConstraintLayout>
