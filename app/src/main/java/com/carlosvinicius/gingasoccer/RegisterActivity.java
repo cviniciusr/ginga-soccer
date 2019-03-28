@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(RegisterActivity.this, UserInfoActivity.class);
                     intent.putExtra(getResources().getString(R.string.user), user);
+                    intent.putExtra(getResources().getString(R.string.user_key), key);
 
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);

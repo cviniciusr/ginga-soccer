@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
                 intent.putExtra(getResources().getString(R.string.user), user);
+                intent.putExtra(getResources().getString(R.string.user_key), dataSnapshot.getKey());
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);

@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Team implements Serializable {
 
     private String name;
+    private String weekday;
     private String startTime;
     private String endTime;
     private String address;
@@ -15,8 +16,9 @@ public class Team implements Serializable {
     public Team() {
     }
 
-    public Team(String name, String startTime, String endTime, String address) {
+    public Team(String name, String weekday, String startTime, String endTime, String address) {
         this.name = name;
+        this.weekday = weekday;
         this.startTime = startTime;
         this.endTime = endTime;
         this.address = address;
@@ -28,6 +30,14 @@ public class Team implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(String weekday) {
+        this.weekday = weekday;
     }
 
     public String getStartTime() {

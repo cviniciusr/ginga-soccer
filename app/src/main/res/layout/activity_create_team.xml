@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateTeamActivity">
+
+    <TextView
+        android:id="@+id/create_team_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/create_team"
+        android:textAppearance="@style/Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/team_name_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/team_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_team_tv" />
+
+    <Spinner
+        android:id="@+id/weekday_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/team_name_edt" />
+
+    <EditText
+        android:id="@+id/start_time_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekday_spinner" />
+
+    <EditText
+        android:id="@+id/end_time_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/weekday_spinner" />
+
+    <EditText
+        android:id="@+id/address_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_side_margin"
+        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/main_side_margin"
+        android:layout_marginRight="@dimen/main_side_margin"
+        android:ems="10"
+        android:hint="@string/address"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_time_edt" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/create_team_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_edt" />
+
+</android.support.constraint.ConstraintLayout>
