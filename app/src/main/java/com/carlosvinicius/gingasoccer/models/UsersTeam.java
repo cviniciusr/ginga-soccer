@@ -1,18 +1,21 @@
 package com.carlosvinicius.gingasoccer.models;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.List;
 
+@IgnoreExtraProperties
 public class UsersTeam {
 
     private String teamKey;
-    private List<String> usersKey;
+    private List<TeamUser> teamUsers;
 
     public UsersTeam() {
     }
 
-    public UsersTeam(String teamKey, List<String> usersKey) {
+    public UsersTeam(String teamKey, List<TeamUser> teamUsers) {
         this.teamKey = teamKey;
-        this.usersKey = usersKey;
+        this.teamUsers = teamUsers;
     }
 
     public String getTeamKey() {
@@ -23,11 +26,11 @@ public class UsersTeam {
         this.teamKey = teamKey;
     }
 
-    public List<String> getUsersKey() {
-        return usersKey;
+    public List<TeamUser> getTeamUsers() {
+        return teamUsers;
     }
 
-    public void setUsersKey(List<String> usersKey) {
-        this.usersKey = usersKey;
+    public void setTeamUsers(List<TeamUser> teamUsers) {
+        this.teamUsers = teamUsers;
     }
 }

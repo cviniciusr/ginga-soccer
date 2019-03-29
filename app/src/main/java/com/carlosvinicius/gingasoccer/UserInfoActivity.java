@@ -7,15 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.carlosvinicius.gingasoccer.adapters.TeamRecyclerViewAdapter;
 import com.carlosvinicius.gingasoccer.models.Team;
 import com.carlosvinicius.gingasoccer.models.User;
+import com.carlosvinicius.gingasoccer.models.UsersTeam;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +46,7 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private ChildEventListener childEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +73,37 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                updateRecyclerView(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                updateRecyclerView(dataSnapshot);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                updateRecyclerView(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i(TAG, "childEventListener, childEventListener()");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "childEventListener, onCancelled()");
+            }
+        };
+
         mTeamList = new ArrayList<>();
+
+        Query query = databaseReference.orderByChild("userKey").equalTo(userKey);
+        query.addChildEventListener(childEventListener);
 
         mTeamsRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mTeamsRecyclerView.setHasFixedSize(true);
@@ -81,6 +119,25 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
                 startActivity(newTeamIntent);
             }
         });
+    }
+
+    private void updateRecyclerView(DataSnapshot dataSnapshot) {
+        mTeamList = new ArrayList<>();
+
+        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+
+        while (iterator.hasNext()) {
+            UsersTeam team = iterator.next().getValue(UsersTeam.class);
+
+            System.out.println("Teste");
+
+//            databaseReference.child("team").child(team.getTeamKey()).
+//
+//            mTeamList.add(team);
+        }
+
+        mTeamRecyclerViewAdapter.setTeamList(mTeamList);
     }
 
     @Override

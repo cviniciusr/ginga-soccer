@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.carlosvinicius.gingasoccer.models.Team;
+import com.carlosvinicius.gingasoccer.models.TeamUser;
 import com.carlosvinicius.gingasoccer.models.UsersTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -136,7 +137,9 @@ public class CreateTeamActivity extends AppCompatActivity {
 
         String key = mDatabaseReference.push().getKey();
 
-        UsersTeam usersTeam = new UsersTeam(key, Arrays.asList(userKey));
+        TeamUser teamUser = new TeamUser(userKey, true);
+
+        UsersTeam usersTeam = new UsersTeam(key, Arrays.asList(teamUser));
 
         mDatabaseReference.child("team").child(key).setValue(team);
         mDatabaseReference.child("usersTeam").child(key).setValue(usersTeam);
