@@ -3,6 +3,7 @@ package com.carlosvinicius.gingasoccer.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
+import java.util.List;
 
 @IgnoreExtraProperties
 public class Team implements Serializable {

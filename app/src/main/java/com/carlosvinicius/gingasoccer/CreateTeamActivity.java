@@ -9,11 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.carlosvinicius.gingasoccer.models.Team;
-import com.carlosvinicius.gingasoccer.models.TeamUser;
 import com.carlosvinicius.gingasoccer.models.UsersTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -21,11 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 
 public class CreateTeamActivity extends AppCompatActivity {
 
@@ -133,16 +131,19 @@ public class CreateTeamActivity extends AppCompatActivity {
         String endTime = mEndTimeEditText.getText().toString();
         String address = mAddressEditText.getText().toString();
 
-        Team team = new Team(teamName, weekday, startTime, endTime, address);
-
         String key = mDatabaseReference.push().getKey();
 
-        TeamUser teamUser = new TeamUser(userKey, true);
+//        UsersTeam usersTeam = new UsersTeam(key);
 
-        UsersTeam usersTeam = new UsersTeam(key, Arrays.asList(teamUser));
+        Team team = new Team(teamName, weekday, startTime, endTime, address);
 
         mDatabaseReference.child("team").child(key).setValue(team);
-        mDatabaseReference.child("usersTeam").child(key).setValue(usersTeam);
+
+        Map<String, Object> addUsers = new HashMap<>();
+
+        String teamPath = "team/" + key + "/usersTeam/" + userKey;
+        addUsers.put(teamPath, true);
+        mDatabaseReference.updateChildren(addUsers);
     }
 
 //    @OnTouch(R.id.start_time_edt)

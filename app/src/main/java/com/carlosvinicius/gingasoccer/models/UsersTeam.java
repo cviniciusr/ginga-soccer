@@ -7,30 +7,20 @@ import java.util.List;
 @IgnoreExtraProperties
 public class UsersTeam {
 
-    private String teamKey;
-    private List<TeamUser> teamUsers;
+    private String userKey;
 
     public UsersTeam() {
     }
 
-    public UsersTeam(String teamKey, List<TeamUser> teamUsers) {
-        this.teamKey = teamKey;
-        this.teamUsers = teamUsers;
+    public UsersTeam(String userKey) {
+        this.userKey = userKey;
     }
 
-    public String getTeamKey() {
-        return teamKey;
+    public String getUserKey() {
+        return userKey;
     }
 
-    public void setTeamKey(String teamKey) {
-        this.teamKey = teamKey;
-    }
-
-    public List<TeamUser> getTeamUsers() {
-        return teamUsers;
-    }
-
-    public void setTeamUsers(List<TeamUser> teamUsers) {
-        this.teamUsers = teamUsers;
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 }

@@ -2,6 +2,7 @@ package com.carlosvinicius.gingasoccer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,8 +21,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,7 +49,7 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-    private ChildEventListener childEventListener;
+//    private ChildEventListener childEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,37 +76,34 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
-        childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                updateRecyclerView(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                updateRecyclerView(dataSnapshot);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                updateRecyclerView(dataSnapshot);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.i(TAG, "childEventListener, childEventListener()");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.i(TAG, "childEventListener, onCancelled()");
-            }
-        };
+//        childEventListener = new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                updateRecyclerView(dataSnapshot);
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                updateRecyclerView(dataSnapshot);
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                updateRecyclerView(dataSnapshot);
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//                Log.i(TAG, "childEventListener, childEventListener()");
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.i(TAG, "childEventListener, onCancelled()");
+//            }
+//        };
 
         mTeamList = new ArrayList<>();
-
-        Query query = databaseReference.orderByChild("userKey").equalTo(userKey);
-        query.addChildEventListener(childEventListener);
 
         mTeamsRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mTeamsRecyclerView.setHasFixedSize(true);
@@ -121,21 +121,68 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        Query query = databaseReference.orderByChild("team").equalTo(userKey);
+        Query query = databaseReference.child("team").orderByChild("usersTeam/" + userKey).equalTo(true);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, HashMap<String, Object>> mapa =
+                        (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
+
+                mTeamList = new ArrayList<>();
+
+                for (HashMap<String, Object> value: mapa.values()) {
+                    String name = (String) value.get("name");
+                    String weekday = (String) value.get("weekday");
+                    String startTime = (String) value.get("startTime");
+                    String endTime = (String) value.get("endTime");
+                    String address = (String) value.get("address");
+
+                    Team team = new Team(name, weekday, startTime, endTime, address);
+
+                    mTeamList.add(team);
+                }
+
+                mTeamRecyclerViewAdapter.setTeamList(mTeamList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("teste 2");
+            }
+        });
+
+//        query.addChildEventListener(childEventListener);
+    }
+
     private void updateRecyclerView(DataSnapshot dataSnapshot) {
-        mTeamList = new ArrayList<>();
+        String name = (String) dataSnapshot.child("name").getValue();
+        String weekday = (String) dataSnapshot.child("weekday").getValue();
+        String startTime = (String) dataSnapshot.child("startTime").getValue();
+        String endTime = (String) dataSnapshot.child("endTime").getValue();
+        String address = (String) dataSnapshot.child("address").getValue();
 
-        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+        Team team = new Team(name, weekday, startTime, endTime, address);
 
-        while (iterator.hasNext()) {
-            UsersTeam team = iterator.next().getValue(UsersTeam.class);
+        mTeamList.add(team);
 
-            System.out.println("Teste");
-
+//        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+//        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+//
+//        while (iterator.hasNext()) {
+//            Team team = iterator.next().getValue(Team.class);
+//
+//            System.out.println("Teste");
+//
 //            databaseReference.child("team").child(team.getTeamKey()).
 //
 //            mTeamList.add(team);
-        }
+//        }
 
         mTeamRecyclerViewAdapter.setTeamList(mTeamList);
     }
