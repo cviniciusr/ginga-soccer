@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
                     User user = new User(fullname, nickname, email, birthDate, password);
 
                     String key = usersDatabaseReference.push().getKey();
-                    usersDatabaseReference.child(key).setValue(user);
+                    usersDatabaseReference.child(key).setValue(user.toMap());
 
                     Intent intent = new Intent(RegisterActivity.this, UserInfoActivity.class);
                     intent.putExtra(getResources().getString(R.string.user), user);

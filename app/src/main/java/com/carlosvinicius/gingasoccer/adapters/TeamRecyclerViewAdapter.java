@@ -62,8 +62,6 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final View mView;
-
         @BindView(R.id.team_name_tv)
         TextView teamNameTextView;
 
@@ -75,10 +73,9 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
 
             ButterKnife.bind(this, view);
-//            cardView.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
 
         public void onClick(View v) {

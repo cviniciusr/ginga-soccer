@@ -14,6 +14,8 @@ public class User implements Serializable {
     private String email;
     private String birthDate;
     private String password;
+    private Boolean active;
+    private String playerKey;
 
     public User() {
     }
@@ -75,5 +77,21 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getPlayerKey() {
+        return playerKey;
+    }
+
+    public void setPlayerKey(String playerKey) {
+        this.playerKey = playerKey;
     }
 }

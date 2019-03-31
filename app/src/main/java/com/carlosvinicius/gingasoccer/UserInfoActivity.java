@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private ValueEventListener listener;
 //    private ChildEventListener childEventListener;
 
     @Override
@@ -119,31 +121,29 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
                 startActivity(newTeamIntent);
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        Query query = databaseReference.orderByChild("team").equalTo(userKey);
-        Query query = databaseReference.child("team").orderByChild("usersTeam/" + userKey).equalTo(true);
-
-        query.addValueEventListener(new ValueEventListener() {
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String, HashMap<String, Object>> mapa =
+                HashMap<String, HashMap<String, Object>> map =
                         (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
 
                 mTeamList = new ArrayList<>();
 
-                for (HashMap<String, Object> value: mapa.values()) {
+//                for (HashMap<String, Object> value : map.values()) {
+                for(Map.Entry<String, HashMap<String, Object>> entry: map.entrySet()) {
+                    String key = entry.getKey();
+                    HashMap<String, Object> value = entry.getValue();
                     String name = (String) value.get("name");
                     String weekday = (String) value.get("weekday");
                     String startTime = (String) value.get("startTime");
                     String endTime = (String) value.get("endTime");
                     String address = (String) value.get("address");
+                    Map<String, Object> players = (HashMap<String, Object>) value.get("usersTeam");
 
                     Team team = new Team(name, weekday, startTime, endTime, address);
+                    team.setTeamKey(key);
+                    team.setPlayers(players);
 
                     mTeamList.add(team);
                 }
@@ -155,22 +155,32 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("teste 2");
             }
-        });
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        Query query = databaseReference.orderByChild("team").equalTo(userKey);
+        Query query = databaseReference.child("team").orderByChild("usersTeam/" + userKey).equalTo(true);
+
+        query.addValueEventListener(listener);
 
 //        query.addChildEventListener(childEventListener);
     }
 
-    private void updateRecyclerView(DataSnapshot dataSnapshot) {
-        String name = (String) dataSnapshot.child("name").getValue();
-        String weekday = (String) dataSnapshot.child("weekday").getValue();
-        String startTime = (String) dataSnapshot.child("startTime").getValue();
-        String endTime = (String) dataSnapshot.child("endTime").getValue();
-        String address = (String) dataSnapshot.child("address").getValue();
-
-        Team team = new Team(name, weekday, startTime, endTime, address);
-
-        mTeamList.add(team);
-
+//    private void updateRecyclerView(DataSnapshot dataSnapshot) {
+//        String name = (String) dataSnapshot.child("name").getValue();
+//        String weekday = (String) dataSnapshot.child("weekday").getValue();
+//        String startTime = (String) dataSnapshot.child("startTime").getValue();
+//        String endTime = (String) dataSnapshot.child("endTime").getValue();
+//        String address = (String) dataSnapshot.child("address").getValue();
+//
+//        Team team = new Team(name, weekday, startTime, endTime, address);
+//
+//        mTeamList.add(team);
+//
 //        Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
 //        Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
 //
@@ -183,15 +193,15 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
 //
 //            mTeamList.add(team);
 //        }
-
-        mTeamRecyclerViewAdapter.setTeamList(mTeamList);
-    }
+//
+//        mTeamRecyclerViewAdapter.setTeamList(mTeamList);
+//    }
 
     @Override
     public void onListItemClick(int clickedItemId) {
         final Team team = mTeamList.get(clickedItemId);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, TeamInfoActivity.class);
         intent.putExtra(getResources().getString(R.string.team), team);
 
         if (intent.resolveActivity(getPackageManager()) != null) {

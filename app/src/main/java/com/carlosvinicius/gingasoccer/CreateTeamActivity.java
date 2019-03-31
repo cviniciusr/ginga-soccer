@@ -137,7 +137,7 @@ public class CreateTeamActivity extends AppCompatActivity {
 
         Team team = new Team(teamName, weekday, startTime, endTime, address);
 
-        mDatabaseReference.child("team").child(key).setValue(team);
+        mDatabaseReference.child("team").child(key).setValue(team.toMap());
 
         Map<String, Object> addUsers = new HashMap<>();
 

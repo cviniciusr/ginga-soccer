@@ -23,4 +23,13 @@
     <string name="create">Create</string>
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
+    <string name="team_info">Team Info</string>
+    <string name="active">Active</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="begin_match">Begin Match</string>
+    <string name="search_player_hint">Type the e-mail</string>
+    <string name="search">Search</string>
+    <string name="add">Add</string>
+    <string name="team_key">Team Key</string>
 </resources>

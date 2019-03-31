@@ -21,7 +21,8 @@
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserInfoActivity" />
-        <activity android:name=".CreateTeamActivity"></activity>
+        <activity android:name=".CreateTeamActivity" />
+        <activity android:name=".TeamInfoActivity"></activity>
     </application>
 
 </manifest>
