@@ -40,4 +40,6 @@
     <string name="players_by_team">Players by Team</string>
     <string name="formed_teams">Formed Teams</string>
     <string name="number_of_players">Number of Players</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
