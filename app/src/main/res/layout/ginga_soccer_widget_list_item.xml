@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/main_side_margin"
+    android:paddingRight="@dimen/main_side_margin"
+    android:paddingStart="@dimen/main_side_margin"
+    android:paddingEnd="@dimen/main_side_margin"
+    android:minHeight="@dimen/widget_listview_item_height"
+    android:weightSum="2"
+    android:id="@+id/widget_ingredient_container">
+
+    <TextView
+        android:id="@+id/widget_team_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/widget_team_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical" />
+</LinearLayout>

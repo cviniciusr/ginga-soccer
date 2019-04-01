@@ -1,6 +1,8 @@
 package com.carlosvinicius.gingasoccer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -72,6 +74,12 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
                 intent.putExtra(getResources().getString(R.string.user), user);
                 intent.putExtra(getResources().getString(R.string.user_key), dataSnapshot.getKey());
+
+                SharedPreferences sharedPref = LoginActivity.this.getSharedPreferences(
+                        getResources().getString(R.string.ginga_soccer_preferences), MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getResources().getString(R.string.user_key), dataSnapshot.getKey());
+                editor.commit();
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);

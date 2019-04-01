@@ -42,4 +42,6 @@
     <string name="number_of_players">Number of Players</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="ginga_soccer_preferences">Ginga Soccer Preferences</string>
+    <string name="logout">Logout</string>
 </resources>

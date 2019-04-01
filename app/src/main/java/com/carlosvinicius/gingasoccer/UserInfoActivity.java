@@ -1,6 +1,7 @@
 package com.carlosvinicius.gingasoccer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -8,10 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosvinicius.gingasoccer.adapters.TeamRecyclerViewAdapter;
+import com.carlosvinicius.gingasoccer.appwidget.GingaSoccerWidgetProvider;
 import com.carlosvinicius.gingasoccer.models.Team;
 import com.carlosvinicius.gingasoccer.models.User;
 import com.carlosvinicius.gingasoccer.models.UsersTeam;
@@ -217,5 +222,36 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = new MenuInflater(this);
+        menuInflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logout:
+
+                mAuth.signOut();
+
+                SharedPreferences sharedPref = getSharedPreferences(
+                        getResources().getString(R.string.ginga_soccer_preferences), MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getResources().getString(R.string.user_key), "");
+                editor.commit();
+
+                GingaSoccerWidgetProvider.sendRefreshBroadcast(this);
+
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
