@@ -32,4 +32,12 @@
     <string name="search">Search</string>
     <string name="add">Add</string>
     <string name="team_key">Team Key</string>
+    <string name="no_player_found">No Player Found</string>
+    <string name="draw_players">Draw Players</string>
+    <string name="draw">Draw</string>
+    <string name="attend">Attend</string>
+    <string name="players">Players</string>
+    <string name="players_by_team">Players by Team</string>
+    <string name="formed_teams">Formed Teams</string>
+    <string name="number_of_players">Number of Players</string>
 </resources>

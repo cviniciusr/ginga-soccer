@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosvinicius.gingasoccer.adapters.TeamRecyclerViewAdapter;
@@ -40,6 +41,9 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
     private String userKey;
     private List<Team> mTeamList;
 
+    @BindView(R.id.nickname_info_tv)
+    TextView mNicknameInfoTextView;
+
     @BindView(R.id.teams_rv)
     RecyclerView mTeamsRecyclerView;
     private TeamRecyclerViewAdapter mTeamRecyclerViewAdapter;
@@ -65,6 +69,8 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
         if (intent != null) {
             if (intent.hasExtra(getResources().getString(R.string.user))) {
                 user = (User) intent.getSerializableExtra(getResources().getString(R.string.user));
+
+                mNicknameInfoTextView.setText(user.getNickname());
 
                 Log.d(TAG, "User: " + user.getFullname());
             }
@@ -129,6 +135,10 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
                         (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
 
                 mTeamList = new ArrayList<>();
+
+                if (map == null) {
+                    return;
+                }
 
 //                for (HashMap<String, Object> value : map.values()) {
                 for(Map.Entry<String, HashMap<String, Object>> entry: map.entrySet()) {

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.carlosvinicius.gingasoccer.R;
 import com.carlosvinicius.gingasoccer.models.User;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,21 +18,14 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPlayersRecyclerViewAdapter.ViewHolder> {
-
-    private DatabaseReference databaseReference;
+public class DrawPlayersRecyclerViewAdapter extends RecyclerView.Adapter<DrawPlayersRecyclerViewAdapter.ViewHolder> {
 
     private List<User> mPlayers;
-    private String teamKey;
     private final ListItemClickListener mOnClickListener;
 
-    public TeamPlayersRecyclerViewAdapter(List<User> items, String teamKey,
-                                          ListItemClickListener mOnClickListener,
-                                          DatabaseReference databaseReference) {
+    public DrawPlayersRecyclerViewAdapter(List<User> items, ListItemClickListener mOnClickListener) {
         this.mPlayers = items;
-        this.teamKey = teamKey;
         this.mOnClickListener = mOnClickListener;
-        this.databaseReference = databaseReference;
     }
 
     public interface  ListItemClickListener {
@@ -43,7 +35,7 @@ public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPla
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.team_players_list_item, parent, false);
+                .inflate(R.layout.draw_players_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,10 +43,8 @@ public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPla
     public void onBindViewHolder(final ViewHolder holder, int position) {
         User player = mPlayers.get(position);
 
-        holder.playerNameTeamInfoTextView.setText(player.getNickname());
-        holder.actualState = player.isActive();
-        holder.activeSwitch.setChecked(player.isActive());
-        holder.playerKey = player.getPlayerKey();
+        holder.drawPlayerNameTextView.setText(player.getNickname());
+        holder.attendSwitch.setChecked(player.isAttend());
     }
 
     @Override
@@ -69,15 +59,13 @@ public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPla
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.player_name_team_info_tv)
-        TextView playerNameTeamInfoTextView;
+        @BindView(R.id.draw_player_name_tv)
+        TextView drawPlayerNameTextView;
 
-        @BindView(R.id.active_switch)
-        Switch activeSwitch;
+        @BindView(R.id.attend_switch)
+        Switch attendSwitch;
 
         Boolean actualState;
-
-        String playerKey;
 
         public ViewHolder(View view) {
             super(view);
@@ -85,18 +73,9 @@ public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPla
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);
 
-            activeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (actualState != isChecked) {
-                    Map<String, Object> updateUser = new HashMap<>();
-
-                    String teamPath = "team/" + teamKey + "/usersTeam/" + playerKey;
-                    updateUser.put(teamPath, isChecked);
-                    databaseReference.updateChildren(updateUser);
-
-                    actualState = isChecked;
-
-                    view.callOnClick();
-                }
+            attendSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                actualState = isChecked;
+                view.callOnClick();
             });
         }
 
@@ -110,7 +89,7 @@ public class TeamPlayersRecyclerViewAdapter extends RecyclerView.Adapter<TeamPla
 
         @Override
         public String toString() {
-            return super.toString() + " '" + playerNameTeamInfoTextView.getText() + "'";
+            return super.toString() + " '" + drawPlayerNameTextView.getText() + "'";
         }
     }
 }

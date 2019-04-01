@@ -12,19 +12,20 @@ public class User implements Serializable {
     private String fullname;
     private String nickname;
     private String email;
-    private String birthDate;
+    private String birthdate;
     private String password;
     private Boolean active;
     private String playerKey;
+    private Boolean attend;
 
     public User() {
     }
 
-    public User(String fullname, String nickname, String email, String birthDate, String password) {
+    public User(String fullname, String nickname, String email, String birthdate, String password) {
         this.fullname = fullname;
         this.nickname = nickname;
         this.email = email;
-        this.birthDate = birthDate;
+        this.birthdate = birthdate;
         this.password = password;
     }
 
@@ -33,7 +34,7 @@ public class User implements Serializable {
         result.put("fullname", fullname);
         result.put("nickname", nickname);
         result.put("email", email);
-        result.put("birthdate", birthDate);
+        result.put("birthdate", birthdate);
         result.put("password", password);
 
         return result;
@@ -63,12 +64,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getPassword() {
@@ -79,7 +80,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
@@ -93,5 +94,13 @@ public class User implements Serializable {
 
     public void setPlayerKey(String playerKey) {
         this.playerKey = playerKey;
+    }
+
+    public Boolean isAttend() {
+        return attend;
+    }
+
+    public void setAttend(Boolean attend) {
+        this.attend = attend;
     }
 }

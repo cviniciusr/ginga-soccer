@@ -76,6 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
                     String selectedMonthText;
                     String selectedDayText;
 
+                    selectedMonth = selectedMonth + 1;
+
                     if (selectedMonth < 10) {
                         selectedMonthText = "0" + selectedMonth;
                     } else {

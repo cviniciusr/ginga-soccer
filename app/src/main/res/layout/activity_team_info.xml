@@ -7,7 +7,7 @@
     tools:context=".TeamInfoActivity">
 
     <TextView
-        android:id="@+id/team_info_tv"
+        android:id="@+id/draw_players_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/main_side_margin"
@@ -41,7 +41,7 @@
         app:contentPadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/team_info_tv">
+        app:layout_constraintTop_toBottomOf="@+id/draw_players_tv">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
         tools:listitem="@layout/team_players_list_item" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/search_edt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/main_side_margin"
@@ -126,9 +126,10 @@
         android:layout_marginLeft="@dimen/main_side_margin"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:visibility="invisible"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/search_edt" />
 
     <TextView
         android:id="@+id/fullname_searched_tv"
@@ -138,6 +139,7 @@
         android:layout_marginLeft="@dimen/main_side_margin"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:visibility="invisible"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickname_searched_tv" />
@@ -150,6 +152,7 @@
         android:layout_marginEnd="@dimen/main_side_margin"
         android:layout_marginRight="@dimen/main_side_margin"
         android:text="@string/add"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_player_btn" />
 

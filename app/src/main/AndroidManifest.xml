@@ -22,7 +22,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".CreateTeamActivity" />
-        <activity android:name=".TeamInfoActivity"></activity>
+        <activity android:name=".TeamInfoActivity" />
+        <activity android:name=".PlayersDrawActivity" />
+        <activity android:name=".FormedTeamActivity"></activity>
     </application>
 
 </manifest>
