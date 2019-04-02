@@ -1,12 +1,10 @@
 package com.carlosvinicius.gingasoccer.adapters;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.carlosvinicius.gingasoccer.R;
@@ -42,12 +40,13 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Team team = mTeamList.get(position);
 
-        holder.teamNameTextView.setText(team.getName());
+        holder.mTeamNameTextView.setText(team.getName());
 
         String time = team.getStartTime() + " - " + team.getEndTime();
 
-        holder.timeTextView.setText(time);
-        holder.addressTestView.setText(team.getAddress());
+        holder.mTimeTextView.setText(time);
+        holder.mAddressTestView.setText(team.getAddress());
+        holder.mDayOfWeek.setText(team.getWeekday());
     }
 
     @Override
@@ -63,13 +62,16 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.team_name_tv)
-        TextView teamNameTextView;
+        TextView mTeamNameTextView;
 
         @BindView(R.id.time_tv)
-        TextView timeTextView;
+        TextView mTimeTextView;
 
         @BindView(R.id.address_tv)
-        TextView addressTestView;
+        TextView mAddressTestView;
+
+        @BindView(R.id.day_of_week_tv)
+        TextView mDayOfWeek;
 
         public ViewHolder(View view) {
             super(view);
@@ -88,7 +90,7 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
 
         @Override
         public String toString() {
-            return super.toString() + " '" + teamNameTextView.getText() + "'";
+            return super.toString() + " '" + mTeamNameTextView.getText() + "'";
         }
     }
 }

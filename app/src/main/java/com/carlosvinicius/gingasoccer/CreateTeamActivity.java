@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -16,12 +17,10 @@ import android.widget.Spinner;
 
 import com.carlosvinicius.gingasoccer.appwidget.GingaSoccerWidgetProvider;
 import com.carlosvinicius.gingasoccer.models.Team;
-import com.carlosvinicius.gingasoccer.models.UsersTeam;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +32,7 @@ import butterknife.OnClick;
 public class CreateTeamActivity extends AppCompatActivity {
 
     @BindView(R.id.team_name_edt)
-    EditText mTeamNameEditText;
+    TextInputEditText mTeamNameEditText;
 
     @BindView(R.id.weekday_spinner)
     Spinner mWeekdaySpinner;
@@ -45,7 +44,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     EditText mEndTimeEditText;
 
     @BindView(R.id.address_edt)
-    EditText mAddressEditText;
+    TextInputEditText mAddressEditText;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;

@@ -70,6 +70,9 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
     @BindView(R.id.fullname_searched_tv)
     TextView mFullnameSearchedTextView;
 
+    @BindView(R.id.no_player_found_tv)
+    TextView mNoPlayerFoundTextView;
+
     @BindView(R.id.add_to_team_btn)
     Button mAddPlayerToteam;
 
@@ -93,6 +96,8 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
         if (intent != null) {
             if (intent.hasExtra(getResources().getString(R.string.team))) {
                 mTeam = (Team) intent.getSerializableExtra(getResources().getString(R.string.team));
+
+                getSupportActionBar().setTitle(mTeam.getName());
 
                 Log.d(TAG, "Team: " + mTeam.getName());
 
@@ -158,10 +163,10 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
             mSearchPlayerEditText.setError(null);
         }
 
-        mNicknameSearchedTextView.setVisibility(View.INVISIBLE);
-        mFullnameSearchedTextView.setVisibility(View.VISIBLE);
-        mAddPlayerToteam.setVisibility(View.INVISIBLE);
-        mFullnameSearchedTextView.setText(getResources().getString(R.string.no_player_found));
+        mNicknameSearchedTextView.setVisibility(View.GONE);
+        mFullnameSearchedTextView.setVisibility(View.GONE);
+        mAddPlayerToteam.setVisibility(View.GONE);
+        mNoPlayerFoundTextView.setVisibility(View.VISIBLE);
 
         Query query = mDatabaseReference.child("users").orderByChild("email").equalTo(email);
         query.addChildEventListener(new ChildEventListener() {
@@ -178,6 +183,8 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
                 mFullnameSearchedTextView.setVisibility(View.VISIBLE);
 
                 mAddPlayerToteam.setVisibility(View.VISIBLE);
+
+                mNoPlayerFoundTextView.setVisibility(View.GONE);
             }
 
             @Override

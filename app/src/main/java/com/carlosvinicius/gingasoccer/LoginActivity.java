@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosvinicius.gingasoccer.models.User;
@@ -45,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
 
     @BindView(R.id.register_btn)
-    Button registerButton;
+    TextView registerButton;
 
     @BindView(R.id.forgot_password_btn)
-    Button forgotPasswordButton;
+    TextView forgotPasswordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

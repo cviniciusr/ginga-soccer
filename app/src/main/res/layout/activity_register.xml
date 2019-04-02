@@ -1,137 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:background="@color/backgroundApp" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:gravity="center_horizontal"
-        android:text="@string/register"
-        android:textAppearance="@style/Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegisterActivity">
 
-    <EditText
-        android:id="@+id/fullname_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/full_name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/register_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:gravity="center_horizontal"
+            android:text="@string/register"
+            android:textAppearance="@style/Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/nickname_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/nickname"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullname_edt" />
+        <!--<EditText-->
+            <!--android:id="@+id/fullname_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/full_name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/register_tv" />-->
 
-    <EditText
-        android:id="@+id/register_email_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickname_edt" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fullname_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/full_name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_tv">
 
-    <EditText
-        android:id="@+id/birth_date_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/birth_date"
-        android:inputType="date"
-        android:focusable="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_email_edt" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/fullname_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:singleLine="true"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/register_password_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth_date_edt" />
+        <!--<EditText-->
+            <!--android:id="@+id/nickname_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/nickname"-->
+            <!--android:inputType="textPersonName"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.504"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fullname_til" />-->
 
-    <EditText
-        android:id="@+id/confirm_password_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        android:ems="10"
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_password_edt" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nickname_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/nickname"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fullname_til">
 
-    <Button
-        android:id="@+id/sign_in_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_password_edt" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/nickname_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:singleLine="true"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
 
-</android.support.constraint.ConstraintLayout>
+        <!--<EditText-->
+            <!--android:id="@+id/register_email_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/nickname_edt" />-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_email_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nickname_til">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/register_email_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:singleLine="true"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<EditText-->
+            <!--android:id="@+id/birth_date_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/birth_date"-->
+            <!--android:inputType="date"-->
+            <!--android:focusable="false"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/register_email_edt" />-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/birth_date_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/birth_date"
+            android:inputType="date"
+            android:focusable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_email_til">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/birth_date_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="date"
+                android:ems="10"
+                android:singleLine="true"
+                android:focusable="false"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<EditText-->
+            <!--android:id="@+id/register_password_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/password"-->
+            <!--android:inputType="textPassword"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/birth_date_edt" />-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_password_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birth_date_til">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/register_password_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:singleLine="true"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<EditText-->
+            <!--android:id="@+id/confirm_password_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/main_side_margin"-->
+            <!--android:layout_marginLeft="@dimen/main_side_margin"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="@dimen/main_side_margin"-->
+            <!--android:layout_marginRight="@dimen/main_side_margin"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/confirm_password"-->
+            <!--android:inputType="textPassword"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/register_password_edt" />-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/confirm_password_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_side_margin"
+            android:layout_marginLeft="@dimen/main_side_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/main_side_margin"
+            android:layout_marginRight="@dimen/main_side_margin"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_password_til">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/confirm_password_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:singleLine="true"
+                tools:layout_editor_absoluteY="8dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/sign_in_btn"
+            style="@style/ButtonShape"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/sign_in"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_til" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

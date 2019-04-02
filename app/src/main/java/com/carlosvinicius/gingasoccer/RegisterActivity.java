@@ -180,6 +180,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             passwordEditText.setError("Required.");
             valid = false;
+        } else if (password.length() < 6) {
+            passwordEditText.setError("Password should be at least 6 characters.");
+            valid = false;
         } else {
             passwordEditText.setError(null);
         }
