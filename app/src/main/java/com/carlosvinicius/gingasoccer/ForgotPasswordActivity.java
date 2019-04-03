@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -46,7 +47,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
-                Log.d(TAG, "Email sent.");
+                Log.d(TAG, "E-mail sent.");
+                Toast.makeText(ForgotPasswordActivity.this, "E-mail sent", Toast.LENGTH_LONG);
+            } else {
+                Toast.makeText(ForgotPasswordActivity.this, "Error sending the e-mail", Toast.LENGTH_LONG);
             }
         });
     }

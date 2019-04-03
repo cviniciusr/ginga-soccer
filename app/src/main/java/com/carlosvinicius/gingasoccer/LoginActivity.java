@@ -62,6 +62,11 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        progressDialog = new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         usersDatabaseReference = database.getReference("users");
@@ -133,10 +138,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
         String email = emailEditText.getText().toString();
