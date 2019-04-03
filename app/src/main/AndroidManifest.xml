@@ -23,8 +23,8 @@
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".CreateTeamActivity" />
         <activity android:name=".TeamInfoActivity" />
-        <activity android:name=".PlayersDrawActivity" />
-        <activity android:name=".FormedTeamActivity" />
+        <activity android:name=".PlayersDrawActivity" android:screenOrientation="portrait" />
+        <activity android:name=".FormedTeamActivity" android:screenOrientation="portrait" />
 
         <receiver android:name=".appwidget.GingaSoccerWidgetProvider">
             <intent-filter>

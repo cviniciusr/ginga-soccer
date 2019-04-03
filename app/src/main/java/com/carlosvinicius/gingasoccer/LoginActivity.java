@@ -1,5 +1,6 @@
 package com.carlosvinicius.gingasoccer;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carlosvinicius.gingasoccer.appwidget.GingaSoccerWidgetProvider;
 import com.carlosvinicius.gingasoccer.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.forgot_password_btn)
     TextView forgotPasswordButton;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = dataSnapshot.getValue(User.class);
-                Toast.makeText(LoginActivity.this
-                        , "Found item key: " + dataSnapshot.getKey()
-                                + "  name: " + user.getFullname()
-                                + "  e-mail: " + user.getEmail()
-                        , Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(LoginActivity.this, UserInfoActivity.class);
                 intent.putExtra(getResources().getString(R.string.user), user);
@@ -81,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getResources().getString(R.string.user_key), dataSnapshot.getKey());
                 editor.commit();
+
+                GingaSoccerWidgetProvider.sendRefreshBroadcast(LoginActivity.this);
+
+                progressDialog.dismiss();
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
@@ -117,6 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "childEventListener, onCancelled()");
             }
         };
+
+        if (mAuth.getCurrentUser() != null) {
+            Query query = usersDatabaseReference.orderByChild("email").equalTo(mAuth.getCurrentUser().getEmail());
+            query.addChildEventListener(childEventListener);
+        }
     }
 
     @OnClick(R.id.login_btn)
@@ -125,31 +133,28 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        progressDialog = new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
             .addOnCompleteListener(this, (task) -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success");
-                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                         Query query = usersDatabaseReference.orderByChild("email").equalTo(email);
                         query.addChildEventListener(childEventListener);
                     } else {
-                        // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                        progressDialog.dismiss();
+                        Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                     }
-
-                    // ...
-//                    }
             });
     }
 

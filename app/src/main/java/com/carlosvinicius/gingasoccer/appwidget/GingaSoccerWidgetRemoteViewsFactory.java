@@ -2,6 +2,7 @@ package com.carlosvinicius.gingasoccer.appwidget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.AdapterView;
@@ -28,7 +29,6 @@ public class GingaSoccerWidgetRemoteViewsFactory implements RemoteViewsService.R
     public static final String TAG = GingaSoccerWidgetRemoteViewsFactory.class.getSimpleName();
 
     private Context mContext;
-    private String mUserKey = "";
     private List<Team> mTeams;
 
     private FirebaseAuth mAuth;
@@ -36,12 +36,10 @@ public class GingaSoccerWidgetRemoteViewsFactory implements RemoteViewsService.R
     private DatabaseReference mDatabaseReference;
     private ValueEventListener listener;
 
+    private boolean isQueryingFinished;
+
     public GingaSoccerWidgetRemoteViewsFactory(Context context, Intent intent) {
         this.mContext = context;
-
-        if (intent.hasExtra(context.getResources().getString(R.string.user_key))) {
-            mUserKey = intent.getStringExtra(context.getResources().getString(R.string.user_key));
-        }
     }
 
     @Override
@@ -59,6 +57,7 @@ public class GingaSoccerWidgetRemoteViewsFactory implements RemoteViewsService.R
                 mTeams = new ArrayList<>();
 
                 if (map == null) {
+                    isQueryingFinished = true;
                     return;
                 }
 
@@ -80,7 +79,8 @@ public class GingaSoccerWidgetRemoteViewsFactory implements RemoteViewsService.R
                     mTeams.add(team);
                 }
 
-                GingaSoccerWidgetProvider.sendRefreshBroadcast(mContext);
+                isQueryingFinished = true;
+//                GingaSoccerWidgetProvider.sendRefreshBroadcast(mContext);
             }
 
             @Override
@@ -88,16 +88,28 @@ public class GingaSoccerWidgetRemoteViewsFactory implements RemoteViewsService.R
                 System.out.println("teste 2");
             }
         };
-
-        if (mUserKey != null && !"".equals(mUserKey)) {
-            Query query = mDatabaseReference.child("team").orderByChild("usersTeam/" + mUserKey).equalTo(true);
-            query.addValueEventListener(listener);
-        }
     }
 
     @Override
     public void onDataSetChanged() {
-        Log.d(TAG, "Data Changed");
+        SharedPreferences sharedPref = mContext.getSharedPreferences(
+                mContext.getResources().getString(R.string.ginga_soccer_preferences), Context.MODE_PRIVATE);
+        String userKey = sharedPref.getString(mContext.getResources().getString(
+                R.string.user_key), "");
+
+        mTeams = new ArrayList<>();
+
+        if (userKey != null && !"".equals(userKey)) {
+            isQueryingFinished = false;
+            Query query = mDatabaseReference.child("team").orderByChild("usersTeam/" + userKey).equalTo(true);
+            query.addValueEventListener(listener);
+
+            while(!isQueryingFinished) {
+                try {
+                    Thread.sleep(500);
+                } catch(Exception ex) {/* */}
+            }
+        }
     }
 
     @Override

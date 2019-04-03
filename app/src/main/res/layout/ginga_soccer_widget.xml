@@ -15,6 +15,7 @@
             android:id="@+id/widget_teams_tv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/widget_title_min_height"
+            android:textColor="@android:color/background_light"
             android:gravity="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />

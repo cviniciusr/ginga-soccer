@@ -23,29 +23,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/formed_team_cv"
+    <TextView
+        android:id="@+id/nickname_info_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_side_margin"
-        android:layout_marginLeft="@dimen/main_side_margin"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/main_side_margin"
-        android:layout_marginRight="@dimen/main_side_margin"
-        app:cardCornerRadius="5dp"
-        app:contentPadding="10dp"
-        app:cardBackgroundColor="#fcfcfc"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_info_tv">
+        app:layout_constraintTop_toBottomOf="@+id/user_info_tv" />
 
-        <TextView
-            android:id="@+id/nickname_info_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/fullname_info_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname_info_tv" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/teams_rv"
@@ -63,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/formed_team_cv"
+        app:layout_constraintTop_toBottomOf="@+id/fullname_info_tv"
         tools:context=".UserInfoActivity"
         tools:listitem="@layout/team_list_item" >
 

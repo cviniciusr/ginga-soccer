@@ -49,6 +49,9 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
     @BindView(R.id.nickname_info_tv)
     TextView mNicknameInfoTextView;
 
+    @BindView(R.id.fullname_info_tv)
+    TextView mFullnameInfoTextView;
+
     @BindView(R.id.teams_rv)
     RecyclerView mTeamsRecyclerView;
     private TeamRecyclerViewAdapter mTeamRecyclerViewAdapter;
@@ -76,6 +79,7 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
                 user = (User) intent.getSerializableExtra(getResources().getString(R.string.user));
 
                 mNicknameInfoTextView.setText(user.getNickname());
+                mFullnameInfoTextView.setText(user.getFullname());
 
                 Log.d(TAG, "User: " + user.getFullname());
             }
@@ -168,7 +172,8 @@ public class UserInfoActivity extends AppCompatActivity implements TeamRecyclerV
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("teste 2");
+//                Toast.makeText(UserInfoActivity.this
+//                        , "Error finding teams: ", Toast.LENGTH_SHORT).show();
             }
         };
     }

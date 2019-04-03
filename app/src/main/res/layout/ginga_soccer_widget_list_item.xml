@@ -9,7 +9,8 @@
     android:paddingEnd="@dimen/main_side_margin"
     android:minHeight="@dimen/widget_listview_item_height"
     android:weightSum="2"
-    android:id="@+id/widget_ingredient_container">
+    android:id="@+id/widget_ingredient_container"
+    android:background="@color/backgroundCardApp">
 
     <TextView
         android:id="@+id/widget_team_info"

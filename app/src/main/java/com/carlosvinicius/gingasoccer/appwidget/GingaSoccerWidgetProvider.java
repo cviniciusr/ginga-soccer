@@ -77,7 +77,7 @@ public class GingaSoccerWidgetProvider extends AppWidgetProvider {
             SharedPreferences sharedPref = context.getSharedPreferences(
                     context.getResources().getString(R.string.ginga_soccer_preferences), Context.MODE_PRIVATE);
             String userKey = sharedPref.getString(context.getResources().getString(
-                    R.string.ginga_soccer_preferences), "");
+                    R.string.user_key), "");
 
             String text = "".equals(userKey) ? "Login" : "Teams";
 
@@ -89,7 +89,6 @@ public class GingaSoccerWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.widget_teams_tv, titlePendingIntent);
 
             Intent listIntent = new Intent(context, GingaSoccerWidgetRemoteViewsService.class);
-            listIntent.putExtra(context.getResources().getString(R.string.user_key), userKey);
             views.setRemoteAdapter(R.id.widget_teams_lv, listIntent);
 
             mgr.updateAppWidget(appWidgetIds, views);
