@@ -149,12 +149,9 @@ public class CreateTeamActivity extends AppCompatActivity {
         addUsers.put(teamPath, true);
         mDatabaseReference.updateChildren(addUsers);
 
-        Map<String, Object> mapUsers = new HashMap<>();
-        mapUsers.put(userKey, true);
-        team.setPlayers(mapUsers);
-
         Intent intent = new Intent(this, TeamInfoActivity.class);
         intent.putExtra(getResources().getString(R.string.team), team);
+        intent.putExtra(getResources().getString(R.string.user_key), userKey);
 
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);

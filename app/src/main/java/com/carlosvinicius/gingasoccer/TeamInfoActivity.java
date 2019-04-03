@@ -112,25 +112,10 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
                         String key = entry.getKey();
                         Boolean active = (Boolean) entry.getValue();
 
-                        Query query = mDatabaseReference.child("users").child(key);
-                        query.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                User player = dataSnapshot.getValue(User.class);
-                                player.setActive(active);
-                                player.setPlayerKey(dataSnapshot.getKey());
-
-                                mPlayers.add(player);
-
-                                mTeamPlayersRecyclerViewAdapter.setPlayers(mPlayers);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                System.out.println("teste 2");
-                            }
-                        });
+                        findUsers(key, active);
                     }
+                } else if (intent.hasExtra(getResources().getString(R.string.user_key))) {
+                    findUsers(intent.getStringExtra(getResources().getString(R.string.user_key)), true);
                 }
             }
         }
@@ -140,6 +125,27 @@ public class TeamInfoActivity extends AppCompatActivity implements TeamPlayersRe
         mTeamPlayersRecyclerViewAdapter = new TeamPlayersRecyclerViewAdapter(
                 mPlayers, mTeam.getTeamKey(), this, mDatabaseReference);
         mTeamPlayersRecyclerView.setAdapter(mTeamPlayersRecyclerViewAdapter);
+    }
+
+    private void findUsers(String key, Boolean active) {
+        Query query = mDatabaseReference.child("users").child(key);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User player = dataSnapshot.getValue(User.class);
+                player.setActive(active);
+                player.setPlayerKey(dataSnapshot.getKey());
+
+                mPlayers.add(player);
+
+                mTeamPlayersRecyclerViewAdapter.setPlayers(mPlayers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("teste 2");
+            }
+        });
     }
 
     @OnClick(R.id.begin_match_btn)
